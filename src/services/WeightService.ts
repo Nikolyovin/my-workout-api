@@ -1,4 +1,4 @@
-import { WeightRequestType } from '../models'
+import { WeightCreateType, WeightUpdateType } from '../models'
 import WeightMeasurement from '../scheme/WeightMeasurement'
 
 //сервис работает только с базой данных; от req res не зависим
@@ -16,9 +16,27 @@ class WeightService {
         return weight
     }
 
-    async create(weight: WeightRequestType) {
+    async create(weight: WeightCreateType) {
         const createWeight = await WeightMeasurement.create(weight)
         return createWeight
+    }
+
+    async update(id: string, weight: WeightUpdateType) {
+        if (!id) {
+            throw new Error('не указан Id')
+        }
+        const updatedWeight = await WeightMeasurement.findByIdAndUpdate(id, weight, {
+            new: true
+        }) //{new: true} чтобы вернулся обновленный пост
+        return updatedWeight
+    }
+
+    async delete(id: string) {
+        if (!id) {
+            throw new Error('не указан Id')
+        }
+        const weight = await WeightMeasurement.findByIdAndDelete(id)
+        return weight
     }
 }
 

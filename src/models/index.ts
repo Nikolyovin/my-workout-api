@@ -1,13 +1,23 @@
-import { Document, ObjectId } from 'mongoose'
+import { Document } from 'mongoose'
 
-export type WeightRequestType = {
+export type WeightCreateType = {
     weight: number
     date: Date
 }
 
+export type WeightUpdateType = {
+    weight?: number
+    date?: Date
+}
+
 export interface WeightResponseType extends Document {
-    // _id: ObjectId
     weight: number
     date: Date
-    // __v: number
+}
+
+export type URIParams = {
+    /**
+     *id of existing weight
+     */
+    id: string
 }
