@@ -1,10 +1,11 @@
 import { Router } from 'express'
-import WeightController from '../controllers/WeightController'
+// import weightController from '../controllers/WeightController'
+import weightController from '../controllers/weightController'
 
 export const weightRouter = Router({})
 
-weightRouter.get('/', WeightController.getAll)
-weightRouter.get('/:id', WeightController.getOne)
-weightRouter.post('/', WeightController.create)
-weightRouter.put('/:id', WeightController.update)
-weightRouter.delete('/:id', WeightController.delete)
+weightRouter.get('/', weightController.getAll)
+weightRouter.get('/:id', weightController.getOne)
+weightRouter.post('/', weightController.create)
+weightRouter.put('/:id', weightController.update)
+weightRouter.delete('/:id', weightController.delete)

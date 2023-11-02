@@ -2,7 +2,7 @@ import { WeightCreateType, WeightUpdateType } from '../models'
 import WeightMeasurement from '../scheme/WeightMeasurement'
 
 //сервис работает только с базой данных; от req res не зависим
-class WeightService {
+class weightService {
     async getAll() {
         const WeightMeasurements = await WeightMeasurement.find()
         return WeightMeasurements
@@ -40,4 +40,4 @@ class WeightService {
     }
 }
 
-export default new WeightService()
+export default new weightService()
