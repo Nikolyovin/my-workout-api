@@ -57,8 +57,11 @@ class authController {
             // костыль для добавления ролей
             // const userRole = await Role.create({})
             // const adminRole = await Role.create({ value: 'ADMIN' })
-            res.json('server work')
-        } catch (e: any) {}
+            const users = await User.find()
+            res.json(users)
+        } catch (e: any) {
+            console.log()
+        }
     }
 }
 
