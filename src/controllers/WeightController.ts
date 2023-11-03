@@ -1,6 +1,6 @@
 import { Request, Response } from 'express'
 import weightService from '../services/weightService'
-import { URIParams, WeightCreateType, WeightResponseType, WeightUpdateType } from '../models'
+import { URIParams, WeightCreateType, WeightResponseType, WeightUpdateType } from '../models/weightType'
 import { RequestWithBody, RequestWithParams, RequestWithParamsAndBody } from '../models/types'
 
 // в контроллерах только логика с req res

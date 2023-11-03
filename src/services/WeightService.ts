@@ -1,4 +1,4 @@
-import { WeightCreateType, WeightUpdateType } from '../models'
+import { WeightCreateType, WeightUpdateType } from '../models/weightType'
 import WeightMeasurement from '../scheme/WeightMeasurement'
 
 //сервис работает только с базой данных; от req res не зависим

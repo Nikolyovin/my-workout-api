@@ -4,7 +4,7 @@
 
 2. устанавливаем зависимости
 
-### npm i express
+### npm i express jsonwebtoken bcryptjs express-validator mongoose
 
 ### npm i nodemon --dev
 
@@ -52,3 +52,5 @@
 10. для того чтобы ts нормально работал не используем require, используем import
 
 11. для деплоя делаем так const port = process.env.PORT || 3000, потому что на хостинге могут быть свои порты
+
+12. секретный ключ добовялем в гит игнор, создаем его вручную на сервере

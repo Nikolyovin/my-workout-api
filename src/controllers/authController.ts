@@ -3,9 +3,11 @@ import Role from '../scheme/Role'
 import User from '../scheme/User'
 import bcrypt from 'bcryptjs'
 import { validationResult } from 'express-validator'
+import { LoginRequestType, RegistrationType } from '../models/authType'
+import { generateAccessToken } from '../utils'
 
 class authController {
-    async registration(req: Request, res: Response) {
+    async registration(req: Request<RegistrationType>, res: Response) {
         try {
             //получаем ошибки из req, с помощью Middleware
             const errors = validationResult(req)
@@ -19,7 +21,7 @@ class authController {
             if (candidate) {
                 return res.status(400).json({ message: 'Пользователь с таким именем уже существует' })
             }
-            const hashPassword = bcrypt.hashSync('password', 7) //хэшируем пароль - 7 это степень хэширования
+            const hashPassword = bcrypt.hashSync(password, 7) //хэшируем пароль - 7 это степень хэширования
             const userRole = await Role.findOne({ value: 'USER' }) // добавляем роль
             const user = new User({ username, password: hashPassword, roles: [userRole?.value] })
             await user.save() // сохраняем в бд
@@ -30,8 +32,20 @@ class authController {
         }
     }
 
-    async login(req: Request, res: Response) {
+    async login(req: Request<LoginRequestType>, res: Response) {
         try {
+            const { username, password } = req.body
+            const user = await User.findOne({ username })
+            if (!user) {
+                return res.status(400).json({ message: `Пользователь ${username} не найден` })
+            }
+            //сравниваем пароль обычный с хэшированным
+            const validPassword = bcrypt.compareSync(password, user.password)
+            if (!validPassword) {
+                return res.status(400).json({ message: 'Введен неверный пароль' })
+            }
+            const token = generateAccessToken(user._id.toString(), user.roles)
+            return res.json({ token })
         } catch (e: any) {
             console.log(e)
             res.status(400).json({ message: 'Login error' })
