@@ -1,7 +1,8 @@
 import { Router } from 'express'
 import authController from '../controllers/authController'
 import { check } from 'express-validator'
-import { authMiddleware } from '../middlewaree/authMiddleware'
+// import authMiddleware from '../middlewaree/authMiddleware'
+const authMiddleware = require('../middlewaree/authMiddleware')
 // import authMiddleware from '../middlewaree/authMiddleware'
 
 export const authRouter = Router({})

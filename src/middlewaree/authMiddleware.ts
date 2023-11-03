@@ -4,7 +4,7 @@ import jwt from 'jsonwebtoken'
 import { IGetUserAuthInfoRequest } from '../models/authType'
 // import { IGetUserAuthInfoRequest } from '../models/authType'
 
-export const authMiddleware = (req: IGetUserAuthInfoRequest, res: Response, next: NextFunction) => {
+module.exports = function (req: IGetUserAuthInfoRequest, res: Response, next: NextFunction) {
     if (req.method === 'OPTIONS') {
         next()
     }
