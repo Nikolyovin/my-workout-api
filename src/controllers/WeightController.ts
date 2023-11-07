@@ -2,6 +2,7 @@ import { Request, Response } from 'express'
 import weightService from '../services/weightService'
 import { URIParams, WeightCreateType, WeightResponseType, WeightUpdateType } from '../models/weightType'
 import { RequestWithBody, RequestWithParams, RequestWithParamsAndBody } from '../models/types'
+import { Result, ValidationError, validationResult } from 'express-validator'
 
 // в контроллерах только логика с req res
 class weightController {
@@ -27,6 +28,11 @@ class weightController {
 
     async create(req: RequestWithBody<WeightCreateType>, res: Response<WeightResponseType>) {
         try {
+            //получаем ошибки из req, с помощью Middleware
+            // const errors = validationResult(req)
+            // if (!errors.isEmpty()) {
+            //     return res.status(400).json({ message: 'Ошибка при добавлении', errors })
+            // }
             console.log('req.body', req.body)
             const weight = await weightService.create(req.body)
             console.log('weight', weight)
@@ -38,6 +44,11 @@ class weightController {
 
     async update(req: RequestWithParamsAndBody<URIParams, WeightUpdateType>, res: Response<WeightResponseType>) {
         try {
+            //получаем ошибки из req, с помощью Middleware
+            // const errors = validationResult(req)
+            // if (!errors.isEmpty()) {
+            //     return res.status(400).json({ message: 'Ошибка при изменении', errors })
+            // }
             console.log('req:', req.params.id, req.body)
             const updatedWeight = await weightService.update(req.params.id, req.body) //{new: true} чтобы вернулся обновленный пост
             console.log('updatedWeight:', updatedWeight)

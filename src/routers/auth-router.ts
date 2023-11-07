@@ -1,9 +1,8 @@
 import { Router } from 'express'
 import authController from '../controllers/authController'
 import { check } from 'express-validator'
-// import authMiddleware from '../middlewaree/authMiddleware'
 const authMiddleware = require('../middlewaree/authMiddleware')
-// import authMiddleware from '../middlewaree/authMiddleware'
+const roleMiddleware = require('../middlewaree/roleMiddleware')
 
 export const authRouter = Router({})
 
@@ -16,4 +15,4 @@ authRouter.post(
     authController.registration
 )
 authRouter.post('/login', authController.login)
-authRouter.get('/users', authMiddleware, authController.getUsers)
+authRouter.get('/users', roleMiddleware('ADMIN'), authController.getUsers)
