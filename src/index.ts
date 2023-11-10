@@ -9,14 +9,15 @@ const PORT = process.env.PORT || 5200
 const DB_URL = 'mongodb://localhost:27017/my-workout'
 
 app.use(express.json()) //нужно тк express по дефолту не понимает json
-app.use('/weight', weightRouter)
-app.use('/auth', authRouter)
 const corsOptions = {
     origin: '*',
     credentials: true //access-control-allow-credentials:true
     // optionSuccessStatus:200
 }
 app.use(cors(corsOptions))
+
+app.use('/weight', weightRouter)
+app.use('/auth', authRouter)
 
 async function startApp() {
     try {
