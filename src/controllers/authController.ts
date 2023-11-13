@@ -3,7 +3,7 @@ import Role from '../scheme/Role'
 import User from '../scheme/User'
 import bcrypt from 'bcryptjs'
 import { validationResult } from 'express-validator'
-import { LoginRequestType, RegistrationType } from '../models/authType'
+import { IUserResponse, LoginRequestType, RegistrationType } from '../models/authType'
 import { generateAccessToken } from '../utils'
 
 class authController {
@@ -35,7 +35,8 @@ class authController {
     async login(req: Request<LoginRequestType>, res: Response) {
         try {
             const { username, password } = req.body
-            const user = await User.findOne({ username })
+            const user: IUserResponse | null = await User.findOne({ username })
+
             if (!user) {
                 return res.status(400).json({ message: `Пользователь ${username} не найден.` })
             }
@@ -45,7 +46,7 @@ class authController {
                 return res.status(400).json({ message: 'Введен неверный пароль.' })
             }
             const token = generateAccessToken(user._id.toString(), user.roles)
-            return res.json({ token })
+            return res.json({ token, user: user.username })
         } catch (e: any) {
             console.log(e)
             res.status(400).json({ message: 'Login error.' })

@@ -1,5 +1,6 @@
 import { Request } from 'express'
 import { JwtPayload } from 'jsonwebtoken'
+import { Document } from 'mongoose'
 
 export type LoginRequestType = {
     username: string
@@ -13,4 +14,10 @@ export type RegistrationType = {
 
 export interface IGetUserAuthInfoRequest extends Request {
     user: string | JwtPayload // or any other type
+}
+
+export interface IUserResponse extends Document {
+    username: string
+    password: string
+    roles: string[]
 }
