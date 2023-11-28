@@ -26,7 +26,7 @@ module.exports = function (roles: string[]) {
                 }
             })
             if (!hasRole) {
-                return res.status(403).json({ message: 'Увас нет доступа' })
+                return res.status(403).json({ message: 'У вас нет доступа' })
             }
             //проверяем есть ли в спике роли, которые разрешены для этой функции
             next()
